@@ -117,7 +117,8 @@ const AdminDeliveriesPage = () => {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20"
+          style={{ accentColor: '#b3391e' }}
+          className="rounded-lg border border-blue-200 bg-red-50 text-red-700 px-3 py-2 text-sm font-semibold shadow-sm outline-none focus:ring-2 focus:ring-red-200 hover:bg-red-100"
         >
           <option value="">All Statuses</option>
           <option value="unassigned">Unassigned</option>
@@ -215,7 +216,7 @@ const AdminDeliveriesPage = () => {
           <Button 
             onClick={handleAssignDelivery}
             disabled={assigning || !selectedTraveller}
-            variant="primary"
+            variant="danger"
           >
             {assigning ? 'Assigning...' : 'Confirm Assignment'}
           </Button>

@@ -49,7 +49,7 @@ const RevenueChart = ({ data }) => {
           <Area 
             type="monotone" 
             dataKey="revenue" 
-            stroke="#10b981" 
+            stroke="recharts-sector" 
             strokeWidth={3}
             fillOpacity={1} 
             fill="url(#colorRev)" 

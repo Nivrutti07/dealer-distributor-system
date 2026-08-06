@@ -87,7 +87,7 @@ const ProductDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] " >
         <Loader size="xl" />
         <p className="text-text-light mt-4">Loading product details...</p>
       </div>

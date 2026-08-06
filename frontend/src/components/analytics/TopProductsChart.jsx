@@ -10,13 +10,17 @@ import {
   Cell
 } from 'recharts';
 
-const TopProductsChart = ({ data }) => {
+const TopProductsChart = ({ data = [] }) => {
+  const chartData = [...data]
+    .sort((a, b) => Number(a.quantity || 0) - Number(b.quantity || 0))
+    .slice(0, 5);
+
   return (
     <div className="h-[300px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart 
-          layout="vertical" 
-          data={data}
+        <BarChart
+          layout="vertical"
+          data={chartData}
           margin={{ left: 40 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
@@ -41,11 +45,11 @@ const TopProductsChart = ({ data }) => {
           <Bar 
             dataKey="quantity" 
             radius={[0, 4, 4, 0]}
-            fill="#8b5cf6"
+            fill="#22c55e"
             barSize={20}
           >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={index === 0 ? '#7c3aed' : '#a78bfa'} />
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={index === 0 ? '#16a34a' : '#86efac'} />
             ))}
           </Bar>
         </BarChart>

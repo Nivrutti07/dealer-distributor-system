@@ -4,7 +4,7 @@ import { getAllUsers } from '../../api/userApi';
 import { getAllOrders } from '../../api/orderApi';
 import { getDeliveries } from '../../api/deliveryApi';
 import { getPayments } from '../../api/paymentApi';
-import { Users, ShoppingCart, DollarSign, Truck } from 'lucide-react';
+import { Users, ShoppingCart, DollarSign, Truck, Clock } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend
@@ -17,6 +17,7 @@ const AdminDashboard = () => {
     users: 0,
     orders: 0,
     revenue: 0,
+    totalDeliveries: 0,
     deliveries: 0,
     salesData: [],
     statusData: []
@@ -63,6 +64,7 @@ const AdminDashboard = () => {
           users: Array.isArray(usersData) ? usersData.length : 0,
           orders: Array.isArray(ordersData) ? ordersData.length : 0,
           revenue: totalRevenue,
+          totalDeliveries: Array.isArray(deliveriesData) ? deliveriesData.length : 0,
           deliveries: pendingDeliveries,
           salesData,
           statusData
@@ -81,11 +83,12 @@ const AdminDashboard = () => {
     { title: 'Total Users', value: stats.users, icon: Users, color: 'text-blue-600', bg: 'bg-blue-100' },
     { title: 'Total Orders', value: stats.orders, icon: ShoppingCart, color: 'text-purple-600', bg: 'bg-purple-100' },
     { title: 'Total Revenue', value: `₹${stats.revenue.toFixed(2)}`, icon: DollarSign, color: 'text-green-600', bg: 'bg-green-100' },
-    { title: 'Pending Deliveries', value: stats.deliveries, icon: Truck, color: 'text-orange-600', bg: 'bg-orange-100' },
+    { title: 'Deliveries', value: stats.totalDeliveries, icon: Clock, color: 'text-indigo-600', bg: 'bg-indigo-100' },
+    { title: 'Pending Deliveries', value: stats.deliveries, icon: Clock, color: 'text-orange-600', bg: 'bg-orange-100' },
   ];
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="recharts-sector">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
         <p className="text-gray-500 mt-1">Welcome back, {user?.name}</p>
@@ -95,7 +98,7 @@ const AdminDashboard = () => {
         <div className="text-center text-gray-500 py-10">Loading statistics...</div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {statCards.map((card, idx) => {
               const Icon = card.icon;
               return (
@@ -127,7 +130,7 @@ const AdminDashboard = () => {
                       contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                       cursor={{ fill: '#f8fafc' }}
                     />
-                    <Bar dataKey="amount" fill="#4f46e5" radius={[4, 4, 0, 0]} barSize={40} />
+                    <Bar dataKey="amount" fill="#22c55e" radius={[4, 4, 0, 0]} barSize={40} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -148,7 +151,7 @@ const AdminDashboard = () => {
                       dataKey="value"
                     >
                       {stats.statusData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#6366f1'][index % 5]} />
+                        <Cell key={`cell-${index}`} fill={['#4f46e5', '#35b910', '#f59e0b', '#ef4444', '#6366f1'][index % 5]} />
                       ))}
                     </Pie>
                     <Tooltip
